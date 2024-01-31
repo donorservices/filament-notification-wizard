@@ -1,29 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "donorservices/filament-notification-wizard",
+    "description": "This is my package filament-notification-wizard",
     "keywords": [
-        ":vendor_name",
+        "donorservices",
         "laravel",
-        ":package_slug"
+        "filament-notification-wizard"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/donorservices/filament-notification-wizard",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/donorservices/filament-notification-wizard/issues",
+        "source": "https://github.com/donorservices/filament-notification-wizard"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Azriel Walston",
+            "email": "",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0",
         "illuminate/contracts": "^10.0"
     },
@@ -42,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Donorservices\\FilamentNotificationWizard\\": "src/",
+            "Donorservices\\FilamentNotificationWizard\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Donorservices\\FilamentNotificationWizard\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -68,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Donorservices\\FilamentNotificationWizard\\FilamentNotificationWizardServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentNotificationWizard": "Donorservices\\FilamentNotificationWizard\\Facades\\FilamentNotificationWizard"
             }
         }
     },

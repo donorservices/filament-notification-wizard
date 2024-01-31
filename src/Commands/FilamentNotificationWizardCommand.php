@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Donorservices\FilamentNotificationWizard\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentNotificationWizardCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-notification-wizard';
 
     public $description = 'My command';
 
