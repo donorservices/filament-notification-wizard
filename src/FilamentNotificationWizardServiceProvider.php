@@ -103,8 +103,8 @@ class FilamentNotificationWizardServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-notification-wizard', __DIR__ . '/../resources/dist/components/filament-notification-wizard.js'),
-            Css::make('filament-notification-wizard-styles', __DIR__ . '/../resources/dist/filament-notification-wizard.css'),
-            Js::make('filament-notification-wizard-scripts', __DIR__ . '/../resources/dist/filament-notification-wizard.js'),
+            // Css::make('filament-notification-wizard-styles', __DIR__ . '/../resources/dist/filament-notification-wizard.css'),
+            // Js::make('filament-notification-wizard-scripts', __DIR__ . '/../resources/dist/filament-notification-wizard.js'),
         ];
     }
 
