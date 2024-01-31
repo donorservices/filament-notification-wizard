@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Filament\Notifications\Notification;
+
+class {{ className }}
+{
+    public static function send(): void
+{
+    Notification::make()
+    {{attributesPlaceholder}}
+            ->seconds(15)
+    ->send();
+    }
+}

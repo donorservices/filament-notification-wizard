@@ -15,15 +15,16 @@
     "authors": [
         {
             "name": "Azriel Walston",
-            "email": "",
+            "email": "joey@donor.services",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "spatie/laravel-package-tools": "^1.15.0",
-        "illuminate/contracts": "^10.0"
+        "illuminate/contracts": "^10.0",
+        "nwidart/laravel-modules": "^10.0",
+        "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
