@@ -2,19 +2,19 @@
 
 namespace Donorservices\FilamentNotificationWizard\Commands;
 
-use Illuminate\Support\Str;
+use Filament\Notifications\Notification;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use function Laravel\Prompts\text;
-use Filament\Notifications\Notification;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
-use function Laravel\Prompts\select;
+
 use function Laravel\Prompts\search;
 
 class FilamentNotificationWizardCommand extends Command
 {
     protected $signature = 'make:filament-notification';
+
     protected $description = 'Generates a Filament notification';
 
     public function __construct()
@@ -38,12 +38,11 @@ class FilamentNotificationWizardCommand extends Command
         $moduleName = $this->ask('If using Modules enter the Module Name (optional).  If not the default location "App\\Filament\\Notifications" will be used.');
 
         $className = Str::studly($action) . 'Notification';
-        $namespace = $moduleName ? "Modules\\$moduleName\\Notifications\\Filament" : "App\\Filament\\Notifications";
+        $namespace = $moduleName ? "Modules\\$moduleName\\Notifications\\Filament" : 'App\\Filament\\Notifications';
         $path = $moduleName ? "Modules/$moduleName/Notifications/Filament/$className.php" : "app/Filament/Notifications/$className.php";
 
         // $stubPath = base_path('/stubs/filament-notification.php.stub');
         $stubPath = __DIR__ . '/../../stubs/filament-notification.php.stub';
-
 
         // Load and process the stub file
         // $stubPath = 'stubs/filament-notification.php.stub'; // The relative path to your stub within the module
@@ -66,50 +65,51 @@ class FilamentNotificationWizardCommand extends Command
         $this->info("Notification class $className created at $path");
     }
 
-    private function analyzeNotificationMethods(): array {
+    private function analyzeNotificationMethods(): array
+    {
         $class = new ReflectionClass(Notification::class);
         $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
-    
+
         $methodDetails = [];
         foreach ($methods as $method) {
             if ($this->shouldExcludeMethod($method)) {
                 continue;
             }
-    
+
             $parameters = [];
             foreach ($method->getParameters() as $param) {
                 $type = $param->getType();
-            
+
                 if ($type instanceof ReflectionUnionType) {
-                    $typeNames = array_map(fn($t) => $t->getName(), $type->getTypes());
+                    $typeNames = array_map(fn ($t) => $t->getName(), $type->getTypes());
                     $typeName = implode('|', $typeNames);
                 } elseif ($type instanceof ReflectionNamedType) {
                     $typeName = $type->getName();
                 } else {
                     $typeName = 'mixed';
                 }
-            
+
                 $parameters[] = [
                     'name' => $param->getName(),
                     'type' => $typeName,
-                    'optional' => $param->isOptional()
+                    'optional' => $param->isOptional(),
                 ];
             }
-    
+
             $methodDetails[$method->getName()] = $parameters;
         }
-    
+
         return $methodDetails;
     }
-    
 
-    private function shouldExcludeMethod(ReflectionMethod $method): bool {
+    private function shouldExcludeMethod(ReflectionMethod $method): bool
+    {
         // Exclude methods like constructors, factory methods, etc.
         return strpos($method->name, 'make') === 0 || strpos($method->name, '__') === 0;
     }
 
-
-    private function &getNotificationAttributes(): array {
+    private function &getNotificationAttributes(): array
+    {
         static $attributes = null;
         if ($attributes === null) {
             // Load attributes
@@ -122,10 +122,12 @@ class FilamentNotificationWizardCommand extends Command
                 $attributes[$method->name] = $method->name;
             }
         }
+
         return $attributes;
     }
 
-    private function promptWithOptionalFollowUp(): array {
+    private function promptWithOptionalFollowUp(): array
+    {
         $attributes = [];
         $availableAttributes = &$this->getNotificationAttributes();
 
@@ -144,33 +146,31 @@ class FilamentNotificationWizardCommand extends Command
         return $attributes;
     }
 
-    private function searchForAttribute(array &$availableAttributes): ?string {
+    private function searchForAttribute(array &$availableAttributes): ?string
+    {
         $exitOption = 'EXIT_SEARCH';
-    
+
         $result = search(
             'Search for a Filament Notification attribute (press Enter or ESC to stop)',
             function (string $searchValue) use (&$availableAttributes, $exitOption) {
                 if ($searchValue === '') {
                     return [$exitOption => 'Exit Search']; // Add an exit option
                 }
-    
+
                 return array_filter(
-                    $availableAttributes, 
-                    fn($attribute) => str_contains($attribute, $searchValue)
+                    $availableAttributes,
+                    fn ($attribute) => str_contains($attribute, $searchValue)
                 );
             }
         );
-    
+
         return $result !== $exitOption ? $result : null; // Return null if 'Exit Search' was selected
     }
-    
-    
-    
 
-    private function handleText($question): ?string {
+    private function handleText($question): ?string
+    {
         $response = $this->ask($question);
+
         return $response === '' ? null : $response;
     }
-
-
 }

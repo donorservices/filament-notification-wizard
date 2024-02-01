@@ -4,6 +4,7 @@ namespace Donorservices\FilamentNotificationWizard\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
+use Donorservices\FilamentNotificationWizard\FilamentNotificationWizardServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
@@ -18,7 +19,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Donorservices\FilamentNotificationWizard\FilamentNotificationWizardServiceProvider;
 
 class TestCase extends Orchestra
 {
